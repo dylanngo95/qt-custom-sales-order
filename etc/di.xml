@@ -5,4 +5,6 @@
         <plugin name="qt_custom_sales_order_order_repository_interface"
                 type="QT\CustomSalesOrder\Plugin\Magento\Sales\Api\OrderRepositoryInterface" />
     </type>
+    <preference for="QT\CustomSalesOrder\Api\Data\CustomSalesOrderInterface"
+                type="QT\CustomSalesOrder\Model\Data\CustomSalesOrder"/>
 </config>

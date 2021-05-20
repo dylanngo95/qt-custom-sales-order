@@ -1,0 +1,15 @@
+{
+    "custom_sales_order": {
+        "column": {
+            "entity_id": true,
+            "order_id": true,
+            "sales_channel": true,
+            "cskh_comment": true,
+            "integration_id": true,
+            "supplier": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

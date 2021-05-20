@@ -5,10 +5,12 @@ namespace QT\CustomSalesOrder\Plugin\Magento\Sales\Api;
 use Magento\Sales\Api\Data\OrderExtensionFactory;
 use Magento\Sales\Api\Data\OrderInterface;
 use Magento\Sales\Model\ResourceModel\Order\Collection;
+use QT\CustomSalesOrder\Model\CustomSalesOrderRepository;
+use QT\CustomSalesOrder\Model\CustomSalesOrderFactory as ObjectModelFactory;
 
 /**
  * Class OrderRepositoryInterface
- * @package QT\CustomOrderAttribute\Plugin\Magento\Sales\Api
+ * @package QT\CustomSalesOrder\Plugin\Magento\Sales\Api
  */
 class OrderRepositoryInterface
 {
@@ -17,25 +19,54 @@ class OrderRepositoryInterface
      */
     private $orderExtensionFactory;
 
+    /**
+     * @var CustomSalesOrderRepository
+     */
+    private $customSalesOrderRepository;
+
+    /**
+     * @var ObjectModelFactory
+     */
+    private $objectModelFactory;
+
+    /**
+     * OrderRepositoryInterface constructor.
+     * @param OrderExtensionFactory $orderExtensionFactory
+     * @param CustomSalesOrderRepository $customSalesOrderRepository
+     * @param ObjectModelFactory $objectModelFactory
+     */
     public function __construct(
-        OrderExtensionFactory $orderExtensionFactory
+        OrderExtensionFactory $orderExtensionFactory,
+        CustomSalesOrderRepository $customSalesOrderRepository,
+        ObjectModelFactory $objectModelFactory
+
     ) {
         $this->orderExtensionFactory = $orderExtensionFactory;
+        $this->customSalesOrderRepository = $customSalesOrderRepository;
+        $this->objectModelFactory = $objectModelFactory;
     }
 
     /**
      * @param \Magento\Sales\Api\OrderRepositoryInterface $subject
      * @param OrderInterface $order
      * @return OrderInterface
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function afterGet(
         \Magento\Sales\Api\OrderRepositoryInterface $subject,
         OrderInterface $order
     ) {
-
         /** @var \Magento\Sales\Api\Data\OrderExtension $orderExtension */
-        $orderExtension = $order->getExtensionAttributes() ?: $this->orderExtensionFactory->create();
-        $orderExtension->setSalesChannel('aaaaaaa');
+        $orderExtension = $order->getExtensionAttributes() ?? $this->orderExtensionFactory->create();
+
+        $customSalesOrder = $this->customSalesOrderRepository->getById($order->getEntityId());
+        if ($customSalesOrder) {
+            $orderExtension->setSalesChannel($customSalesOrder->getSalesChannel());
+            $orderExtension->setSupplier($customSalesOrder->getSupplier());
+            $orderExtension->setCskhComment($customSalesOrder->getCskhComment());
+            $orderExtension->setIntegrationId($customSalesOrder->getIntegrationId());
+        }
+
         $order->setExtensionAttributes($orderExtension);
 
         return $order;
@@ -45,6 +76,7 @@ class OrderRepositoryInterface
      * @param \Magento\Sales\Api\OrderRepositoryInterface $subject
      * @param Collection $result
      * @return Collection
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function afterGetList(
         \Magento\Sales\Api\OrderRepositoryInterface $subject,
@@ -60,30 +92,31 @@ class OrderRepositoryInterface
      * @param \Magento\Sales\Api\OrderRepositoryInterface $subject
      * @param OrderInterface $order
      * @return OrderInterface
+     * @throws \Magento\Framework\Exception\AlreadyExistsException
      */
     public function afterSave(
         \Magento\Sales\Api\OrderRepositoryInterface $subject,
-        $order
+        OrderInterface $order
     ) {
-//        $status = $order->getStatus();
-//        $statusReason = $order->getExtensionAttributes()->getMomStatusReason();
-//
-//        if ($this->dataHelper->isStatusAllowed($status, $statusReason)
-//            && !$this->deliveryStatusHistoryManagement->exist($order, $status, $statusReason)
-//        ) {
-//            /** @var OrderDeliveryStatusHistoryInterface $orderDeliveryStatusHistory */
-//            $orderDeliveryStatusHistory = $this->orderDeliveryStatusHistoryFactory->create();
-//            $orderDeliveryStatusHistory
-//                ->setOrderId($order->getEntityId())
-//                ->setStatus($status)
-//                ->setReason($statusReason);
-//
-//            try {
-//                $this->orderDeliveryStatusHistoryResource->save($orderDeliveryStatusHistory);
-//            } catch (Exception $e) {
-//                $this->logger->critical($e);
-//            }
-//        }
+
+        $integrationId = $order->getExtensionAttributes()->getIntegrationId();
+        $salesChannel = $order->getExtensionAttributes()->getSalesChannel();
+        $cskhComment = $order->getExtensionAttributes()->getCskhComment();
+        $supplier = $order->getExtensionAttributes()->getSupplier();
+        $orderId = $order->getEntityId();
+
+        if ($orderId) {
+            /** @var \QT\CustomSalesOrder\Model\CustomSalesOrder $customSalesOrder */
+            $customSalesOrder = $this->objectModelFactory->create();
+
+            $customSalesOrder->setOrderId($orderId);
+            $customSalesOrder->setIntegrationId($integrationId);
+            $customSalesOrder->setSalesChannel($salesChannel);
+            $customSalesOrder->setCskhComment($cskhComment);
+            $customSalesOrder->setSupplier($supplier);
+
+            $this->customSalesOrderRepository->save($customSalesOrder);
+        }
 
         return $order;
     }

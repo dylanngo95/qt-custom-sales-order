@@ -8,5 +8,18 @@
                 <field>order_id</field>
             </join>
         </attribute>
+        <attribute code="integration_id" type="int">
+            <join reference_table="custom_sales_order" reference_field="order_id" join_on_field="entity_id">
+                <field>integration_id</field>
+                <field>order_id</field>
+            </join>
+        </attribute>
+        <attribute code="supplier" type="string">
+            <join reference_table="custom_sales_order" reference_field="order_id" join_on_field="entity_id">
+                <field>supplier</field>
+                <field>order_id</field>
+            </join>
+        </attribute>
+        <attribute code="cskh_comment" type="string" />
     </extension_attributes>
 </config>
