@@ -59,16 +59,16 @@ class OrderRepositoryInterface
         /** @var \Magento\Sales\Api\Data\OrderExtension $orderExtension */
         $orderExtension = $order->getExtensionAttributes() ?? $this->orderExtensionFactory->create();
 
-        $customSalesOrder = $this->customSalesOrderRepository->getById($order->getEntityId());
+        $customSalesOrder = $this->customSalesOrderRepository->getByOrderId($order->getEntityId());
         if ($customSalesOrder) {
             $orderExtension->setSalesChannel($customSalesOrder->getSalesChannel());
             $orderExtension->setSupplier($customSalesOrder->getSupplier());
             $orderExtension->setCskhComment($customSalesOrder->getCskhComment());
             $orderExtension->setIntegrationId($customSalesOrder->getIntegrationId());
+            $orderExtension->setCustomSalesOrderId($customSalesOrder->getEntityId());
         }
 
         $order->setExtensionAttributes($orderExtension);
-
         return $order;
     }
 

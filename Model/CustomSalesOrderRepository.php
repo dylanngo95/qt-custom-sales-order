@@ -1,10 +1,8 @@
 <?php
 
-
 namespace QT\CustomSalesOrder\Model;
 
-
-use Magento\Framework\Exception\NoSuchEntityException;
+use Magento\Framework\Webapi\Exception;
 use QT\CustomSalesOrder\Api\CustomSalesOrderInterface;
 use QT\CustomSalesOrder\Api\CustomSalesOrderRepositoryInterface;
 use QT\CustomSalesOrder\Model\ResourceModel\CustomSalesOrder as ObjectResourceModel;
@@ -16,7 +14,6 @@ use QT\CustomSalesOrder\Model\CustomSalesOrderFactory as ObjectModelFactory;
  */
 class CustomSalesOrderRepository implements CustomSalesOrderRepositoryInterface
 {
-
     /**
      * @var ObjectResourceModel
      */
@@ -29,9 +26,8 @@ class CustomSalesOrderRepository implements CustomSalesOrderRepositoryInterface
 
     public function __construct(
         ObjectResourceModel $objectResourceModel,
-        CustomSalesOrderFactory $objectModelFactory
-    )
-    {
+        ObjectModelFactory $objectModelFactory
+    ) {
         $this->objectResourceModel = $objectResourceModel;
         $this->objectModelFactory = $objectModelFactory;
     }
@@ -40,10 +36,16 @@ class CustomSalesOrderRepository implements CustomSalesOrderRepositoryInterface
      * @param CustomSalesOrderInterface $customSalesOrder
      * @return CustomSalesOrderInterface
      * @throws \Magento\Framework\Exception\AlreadyExistsException
+     * @throws Exception
      */
     public function save(CustomSalesOrderInterface $customSalesOrder)
     {
-        return $this->objectResourceModel->save($customSalesOrder);
+        try {
+            $this->objectResourceModel->save($customSalesOrder);
+            return $customSalesOrder;
+        } catch (\Exception $e) {
+            throw new Exception(__($e->getMessage()));
+        }
     }
 
     /**
@@ -54,6 +56,19 @@ class CustomSalesOrderRepository implements CustomSalesOrderRepositoryInterface
     {
         $customSalesOrder = $this->objectModelFactory->create();
         $this->objectResourceModel->load($customSalesOrder, $id);
+        if (!$customSalesOrder->getEntityId()) {
+            return null;
+        }
+        return $customSalesOrder;
+    }
+
+    /**
+     * @param $orderId
+     * @return CustomSalesOrderInterface|null
+     */
+    public function getByOrderId($orderId)
+    {
+        $customSalesOrder = $this->objectResourceModel->getByOrderId($orderId);
         if (!$customSalesOrder->getEntityId()) {
             return null;
         }
