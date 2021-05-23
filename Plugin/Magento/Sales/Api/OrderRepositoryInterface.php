@@ -109,9 +109,9 @@ class OrderRepositoryInterface
             /** @var \QT\CustomSalesOrder\Model\CustomSalesOrder $customSalesOrder */
             $customSalesOrder = $this->objectModelFactory->create();
 
-            $customSalesOrder= $this->customSalesOrderRepository->getByOrderId($orderId);
-            if ($this->customSalesOrderRepository->getByOrderId($orderId)) {
-                $customSalesOrder->setEntityId($customSalesOrder->getEntityId());
+            $customSalesOrderOld = $this->customSalesOrderRepository->getByOrderId($orderId);
+            if ($customSalesOrderOld) {
+                $customSalesOrder->setEntityId($customSalesOrderOld->getEntityId());
             }
 
             $customSalesOrder->setOrderId($orderId);
