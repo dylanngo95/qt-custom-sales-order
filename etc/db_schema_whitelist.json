@@ -9,7 +9,8 @@
             "supplier": true
         },
         "constraint": {
-            "PRIMARY": true
+            "PRIMARY": true,
+            "CUSTOM_SALES_ORDER_ORDER_ID": true
         }
     }
 }

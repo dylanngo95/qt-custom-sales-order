@@ -109,6 +109,11 @@ class OrderRepositoryInterface
             /** @var \QT\CustomSalesOrder\Model\CustomSalesOrder $customSalesOrder */
             $customSalesOrder = $this->objectModelFactory->create();
 
+            $customSalesOrder= $this->customSalesOrderRepository->getByOrderId($orderId);
+            if ($this->customSalesOrderRepository->getByOrderId($orderId)) {
+                $customSalesOrder->setEntityId($customSalesOrder->getEntityId());
+            }
+
             $customSalesOrder->setOrderId($orderId);
             $customSalesOrder->setIntegrationId($integrationId);
             $customSalesOrder->setSalesChannel($salesChannel);
