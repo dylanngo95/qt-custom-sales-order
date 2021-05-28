@@ -12,5 +12,24 @@
             "PRIMARY": true,
             "CUSTOM_SALES_ORDER_ORDER_ID": true
         }
+    },
+    "custom_sales_shipment": {
+        "column": {
+            "entity_id": true,
+            "order_id": true,
+            "contract_id": true,
+            "city": true,
+            "district": true,
+            "status": true,
+            "created_at": true,
+            "confirmed_at": true,
+            "packed_at": true,
+            "send_hvc_at": true,
+            "delivery_at": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "CUSTOM_SALES_SHIPMENT_ORDER_ID": true
+        }
     }
 }

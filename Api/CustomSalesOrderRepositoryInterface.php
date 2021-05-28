@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace QT\CustomSalesOrder\Api;
 
@@ -26,6 +27,6 @@ interface CustomSalesOrderRepositoryInterface
      * @param int $orderId
      * @return \QT\CustomSalesOrder\Api\CustomSalesOrderInterface|null
      */
-    public function getByOrderId($orderId);
+    public function getByOrderId(int $orderId);
 
 }

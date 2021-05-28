@@ -15,4 +15,23 @@
             <column name="order_id"/>
         </constraint>
     </table>
+    <table comment="Custom Sales Shipment" engine="innodb" name="custom_sales_shipment" resource="default">
+        <column comment="Entity ID" identity="true" name="entity_id" nullable="false" unsigned="false" xsi:type="int" />
+        <column comment="Order ID" name="order_id" unsigned="true" nullable="false" xsi:type="int"/>
+        <column comment="Contract ID" name="contract_id" unsigned="true" nullable="true" xsi:type="int"/>
+        <column comment="City" length="255" name="city" nullable="true" xsi:type="varchar" />
+        <column comment="District" length="255" name="district" nullable="true" xsi:type="varchar" />
+        <column xsi:type="smallint" name="status" nullable="true" padding="5" comment="Status"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
+        <column xsi:type="timestamp" name="confirmed_at" on_update="false" nullable="true" comment="Confirmed At"/>
+        <column xsi:type="timestamp" name="packed_at" on_update="false" nullable="true" comment="Packed At"/>
+        <column xsi:type="timestamp" name="send_hvc_at" on_update="false" nullable="true" comment="Send HVC At"/>
+        <column xsi:type="timestamp" name="delivery_at" on_update="false" nullable="true" comment="Delivery At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="QT_CUSTOM_SALES_ORDER_SHIPMENT_ENTITY_ID_ORDER_ID">
+            <column name="order_id"/>
+        </constraint>
+    </table>
 </schema>

@@ -63,10 +63,10 @@ class CustomSalesOrderRepository implements CustomSalesOrderRepositoryInterface
     }
 
     /**
-     * @param $orderId
+     * @param int $orderId
      * @return CustomSalesOrderInterface|null
      */
-    public function getByOrderId($orderId)
+    public function getByOrderId(int $orderId)
     {
         $customSalesOrder = $this->objectResourceModel->getByOrderId($orderId);
         if (!$customSalesOrder->getEntityId()) {

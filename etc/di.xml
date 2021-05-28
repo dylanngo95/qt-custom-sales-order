@@ -6,8 +6,17 @@
                 type="QT\CustomSalesOrder\Model\CustomSalesOrder"/>
     <preference for="QT\CustomSalesOrder\Api\CustomSalesOrderRepositoryInterface"
                 type="QT\CustomSalesOrder\Model\CustomSalesOrderRepository"/>
+    <!--@plugin order repository    -->
     <type name="Magento\Sales\Api\OrderRepositoryInterface">
         <plugin name="qt_custom_sales_order_order_repository_interface"
                 type="QT\CustomSalesOrder\Plugin\Magento\Sales\Api\OrderRepositoryInterface" />
     </type>
+    <!--@plugin shipment    -->
+    <type name="Magento\Sales\Model\Order\ShipmentRepository">
+        <plugin name="custom_sales_order_shipment"
+                type="QT\CustomSalesOrder\Plugin\Magento\Sales\Model\ShipmentRepository"
+                sortOrder="1"/>
+    </type>
+    <preference for="QT\CustomSalesOrder\Api\CustomSalesShipmentInterface"
+                type="QT\CustomSalesOrder\Model\CustomSalesShipment"/>
 </config>

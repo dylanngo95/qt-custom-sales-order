@@ -19,5 +19,15 @@
             </join>
         </attribute>
         <attribute code="cskh_comment" type="string" />
+        <attribute code="carrier_code" type="string">
+            <join reference_table="sales_shipment_track" reference_field="order_id" join_on_field="entity_id">
+                <field>carrier_code</field>
+            </join>
+        </attribute>
+        <attribute code="shipment_status" type="string">
+            <join reference_table="sales_shipment" reference_field="order_id" join_on_field="entity_id">
+                <field>shipment_status</field>
+            </join>
+        </attribute>
     </extension_attributes>
 </config>

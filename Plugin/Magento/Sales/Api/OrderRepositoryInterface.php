@@ -66,6 +66,8 @@ class OrderRepositoryInterface
             $orderExtension->setCskhComment($customSalesOrder->getCskhComment());
             $orderExtension->setIntegrationId($customSalesOrder->getIntegrationId());
             $orderExtension->setCustomSalesOrderId($customSalesOrder->getEntityId());
+            $orderExtension->setCarrierCode("CarrierCode");
+            $orderExtension->setShipmentStatus("ShipmentStatus");
         }
 
         $order->setExtensionAttributes($orderExtension);
@@ -103,7 +105,7 @@ class OrderRepositoryInterface
         $salesChannel = $order->getExtensionAttributes()->getSalesChannel();
         $cskhComment = $order->getExtensionAttributes()->getCskhComment();
         $supplier = $order->getExtensionAttributes()->getSupplier();
-        $orderId = $order->getEntityId();
+        $orderId = (int) $order->getEntityId();
 
         if ($orderId) {
             /** @var \QT\CustomSalesOrder\Model\CustomSalesOrder $customSalesOrder */
