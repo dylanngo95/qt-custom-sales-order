@@ -12,4 +12,16 @@
             <resource ref="QT_CustomSalesOrder::update"/>
         </resources>
     </route>
+    <route url="/V1/custom-sales-shipment/:id" method="GET">
+        <service class="QT\CustomSalesOrder\Api\CustomSalesShipmentRepositoryInterface" method="getById"/>
+        <resources>
+            <resource ref="QT_CustomSalesOrder::get"/>
+        </resources>
+    </route>
+    <route url="/V1/custom-sales-shipment" method="PUT">
+        <service class="QT\CustomSalesOrder\Api\CustomSalesShipmentRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="QT_CustomSalesOrder::update"/>
+        </resources>
+    </route>
 </routes>
