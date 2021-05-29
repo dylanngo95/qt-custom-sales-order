@@ -20,6 +20,8 @@
             "contract_id": true,
             "city": true,
             "district": true,
+            "street": true,
+            "carrier_code": true,
             "status": true,
             "created_at": true,
             "confirmed_at": true,

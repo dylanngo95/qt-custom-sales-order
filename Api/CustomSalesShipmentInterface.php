@@ -19,11 +19,13 @@ interface CustomSalesShipmentInterface
     /**
      * String constants for property names
      */
-    const ENTITY = "entity";
+    const ENTITY_ID = "entity_id";
     const ORDER_ID = "order_id";
     const CONTRACT_ID = "contract_id";
     const CITY = "city";
     const DISTRICT = "district";
+    const STREET = "street";
+    const CARRIER_CODE = "carrier_code";
     const STATUS = "status";
     const CREATED_AT = "created_at";
     const CONFIRMED_AT = "confirmed_at";
@@ -36,7 +38,7 @@ interface CustomSalesShipmentInterface
      *
      * @return int|null
      */
-    public function getEntity(): ?int;
+    public function getEntityId();
 
     /**
      * Setter for Entity.
@@ -45,7 +47,7 @@ interface CustomSalesShipmentInterface
      *
      * @return void
      */
-    public function setEntity(?int $entity): void;
+    public function setEntityId($entity);
 
     /**
      * Getter for OrderId.
@@ -110,6 +112,38 @@ interface CustomSalesShipmentInterface
      * @return void
      */
     public function setDistrict(?string $district): void;
+
+    /**
+     * Getter for Street.
+     *
+     * @return string|null
+     */
+    public function getStreet(): ?string;
+
+    /**
+     * Setter for Street.
+     *
+     * @param string|null $street
+     *
+     * @return void
+     */
+    public function setStreet(?string $street): void;
+
+    /**
+     * Getter for CarrierCode.
+     *
+     * @return string|null
+     */
+    public function getCarrierCode(): ?string;
+
+    /**
+     * Setter for CarrierCode.
+     *
+     * @param string|null $carrierCode
+     *
+     * @return void
+     */
+    public function setCarrierCode(?string $carrierCode): void;
 
     /**
      * Getter for Status.

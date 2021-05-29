@@ -30,18 +30,17 @@ class CustomSalesShipment extends AbstractModel implements CustomSalesShipmentIn
     /**
      * @inheritDoc
      */
-    public function getEntity(): ?int
+    public function getEntityId()
     {
-        return $this->getData(self::ENTITY) === null ? null
-            : (int)$this->getData(self::ENTITY);
+        return $this->getData(self::ENTITY_ID);
     }
 
     /**
      * @inheritDoc
      */
-    public function setEntity(?int $entity): void
+    public function setEntityId($entity)
     {
-        $this->setData(self::ENTITY, $entity);
+        $this->setData(self::ENTITY_ID, $entity);
     }
 
     /**
@@ -108,6 +107,38 @@ class CustomSalesShipment extends AbstractModel implements CustomSalesShipmentIn
     public function setDistrict(?string $district): void
     {
         $this->setData(self::DISTRICT, $district);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getStreet(): ?string
+    {
+        return $this->getData(self::STREET);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setStreet(?string $street): void
+    {
+        $this->setData(self::STREET, $street);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getCarrierCode(): ?string
+    {
+        return $this->getData(self::CARRIER_CODE);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setCarrierCode(?string $carrierCode): void
+    {
+        $this->setData(self::CARRIER_CODE, $carrierCode);
     }
 
     /**

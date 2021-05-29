@@ -7,6 +7,7 @@ use Magento\Sales\Api\Data\OrderInterface;
 use Magento\Sales\Model\ResourceModel\Order\Collection;
 use QT\CustomSalesOrder\Model\CustomSalesOrderRepository;
 use QT\CustomSalesOrder\Model\CustomSalesOrderFactory as ObjectModelFactory;
+use QT\CustomSalesOrder\Model\CustomSalesShipmentRepository;
 
 /**
  * Class OrderRepositoryInterface
@@ -17,33 +18,41 @@ class OrderRepositoryInterface
     /**
      * @var OrderExtensionFactory
      */
-    private $orderExtensionFactory;
+    private OrderExtensionFactory $orderExtensionFactory;
 
     /**
      * @var CustomSalesOrderRepository
      */
-    private $customSalesOrderRepository;
+    private CustomSalesOrderRepository $customSalesOrderRepository;
 
     /**
      * @var ObjectModelFactory
      */
-    private $objectModelFactory;
+    private ObjectModelFactory $objectModelFactory;
+
+    /**
+     * @var CustomSalesShipmentRepository
+     */
+    private CustomSalesShipmentRepository $customSalesShipmentRepository;
 
     /**
      * OrderRepositoryInterface constructor.
      * @param OrderExtensionFactory $orderExtensionFactory
-     * @param CustomSalesOrderRepository $customSalesOrderRepository
      * @param ObjectModelFactory $objectModelFactory
+     * @param CustomSalesOrderRepository $customSalesOrderRepository
+     * @param CustomSalesShipmentRepository $customSalesShipmentRepository
      */
     public function __construct(
         OrderExtensionFactory $orderExtensionFactory,
+        ObjectModelFactory $objectModelFactory,
         CustomSalesOrderRepository $customSalesOrderRepository,
-        ObjectModelFactory $objectModelFactory
+        CustomSalesShipmentRepository $customSalesShipmentRepository
 
     ) {
         $this->orderExtensionFactory = $orderExtensionFactory;
-        $this->customSalesOrderRepository = $customSalesOrderRepository;
         $this->objectModelFactory = $objectModelFactory;
+        $this->customSalesOrderRepository = $customSalesOrderRepository;
+        $this->customSalesShipmentRepository = $customSalesShipmentRepository;
     }
 
     /**
@@ -66,8 +75,14 @@ class OrderRepositoryInterface
             $orderExtension->setCskhComment($customSalesOrder->getCskhComment());
             $orderExtension->setIntegrationId($customSalesOrder->getIntegrationId());
             $orderExtension->setCustomSalesOrderId($customSalesOrder->getEntityId());
+        }
+        $customSalesShipment = $this->customSalesShipmentRepository->getByOrderId($order->getEntityId());
+        if ($customSalesShipment) {
+            $orderExtension->setCustomSalesShipmentId($customSalesShipment->getEntityId());
             $orderExtension->setCarrierCode("CarrierCode");
-            $orderExtension->setShipmentStatus("ShipmentStatus");
+            $orderExtension->setShipmentStatus($customSalesShipment->getStatus());
+            $orderExtension->setCity($customSalesShipment->getCity());
+            $orderExtension->setDistrict($customSalesShipment->getDistrict());
         }
 
         $order->setExtensionAttributes($orderExtension);

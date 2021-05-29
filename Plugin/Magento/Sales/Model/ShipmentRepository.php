@@ -11,7 +11,6 @@ use QT\CustomSalesOrder\Api\CustomSalesShipmentInterface;
 use QT\CustomSalesOrder\Model\CustomSalesShipment;
 use QT\CustomSalesOrder\Model\CustomSalesShipmentFactory;
 use QT\CustomSalesOrder\Model\CustomSalesShipmentRepository;
-use QT\OrderStatusApi\Model\OrderFetcher;
 
 /**
  * Class ShipmentRepository
@@ -79,7 +78,7 @@ class ShipmentRepository
 
         $customSalesShipment->setOrderId($orderId);
         $customSalesShipment->setCity($shippingAddress->getCity());
-        $customSalesShipment->setDistrict(implode(",", $shippingAddress->getStreet()));
+        $customSalesShipment->setStreet(implode(",", $shippingAddress->getStreet()));
         $customSalesShipment->setStatus(CustomSalesShipmentInterface::STATUS_NEW);
         $this->customSalesShipmentRepository->save($customSalesShipment);
 
