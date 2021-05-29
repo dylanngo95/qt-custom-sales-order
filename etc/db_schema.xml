@@ -18,7 +18,7 @@
     <table comment="Custom Sales Shipment" engine="innodb" name="custom_sales_shipment" resource="default">
         <column comment="Entity ID" identity="true" name="entity_id" nullable="false" unsigned="false" xsi:type="int" />
         <column comment="Order ID" name="order_id" unsigned="true" nullable="false" xsi:type="int"/>
-        <column comment="Contract ID" name="contract_id" unsigned="true" nullable="true" xsi:type="int"/>
+        <column comment="Contract ID" name="contract_id" length="255" nullable="true" xsi:type="varchar"/>
         <column comment="City" length="255" name="city" nullable="true" xsi:type="varchar" />
         <column comment="District" length="255" name="district" nullable="true" xsi:type="varchar" />
         <column comment="Street" length="255" name="street" nullable="true" xsi:type="varchar" />

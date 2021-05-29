@@ -21,9 +21,14 @@
         </attribute>
         <attribute code="cskh_comment" type="string" />
         <attribute code="carrier_code" type="string">
-<!--            <join reference_table="sales_shipment_track" reference_field="order_id" join_on_field="entity_id">-->
-<!--                <field>carrier_code</field>-->
-<!--            </join>-->
+            <join reference_table="custom_sales_shipment" reference_field="order_id" join_on_field="entity_id">
+                <field>carrier_code</field>
+            </join>
+        </attribute>
+        <attribute code="contract_id" type="string">
+            <join reference_table="custom_sales_shipment" reference_field="order_id" join_on_field="entity_id">
+                <field>contract_id</field>
+            </join>
         </attribute>
         <attribute code="shipment_status" type="string">
             <join reference_table="custom_sales_shipment" reference_field="order_id" join_on_field="entity_id">
@@ -38,6 +43,11 @@
         <attribute code="district" type="string">
             <join reference_table="custom_sales_shipment" reference_field="order_id" join_on_field="entity_id">
                 <field>district</field>
+            </join>
+        </attribute>
+        <attribute code="street" type="string">
+            <join reference_table="custom_sales_shipment" reference_field="order_id" join_on_field="entity_id">
+                <field>street</field>
             </join>
         </attribute>
         <attribute code="contract_id" type="string">

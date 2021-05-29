@@ -68,18 +68,18 @@ interface CustomSalesShipmentInterface
     /**
      * Getter for ContractId.
      *
-     * @return int|null
+     * @return string|null
      */
-    public function getContractId(): ?int;
+    public function getContractId(): ?string;
 
     /**
      * Setter for ContractId.
      *
-     * @param int|null $contractId
+     * @param string|null $contractId
      *
      * @return void
      */
-    public function setContractId(?int $contractId): void;
+    public function setContractId(?string $contractId): void;
 
     /**
      * Getter for City.

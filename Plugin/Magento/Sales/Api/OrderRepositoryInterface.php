@@ -79,10 +79,12 @@ class OrderRepositoryInterface
         $customSalesShipment = $this->customSalesShipmentRepository->getByOrderId($order->getEntityId());
         if ($customSalesShipment) {
             $orderExtension->setCustomSalesShipmentId($customSalesShipment->getEntityId());
-            $orderExtension->setCarrierCode("CarrierCode");
             $orderExtension->setShipmentStatus($customSalesShipment->getStatus());
+            $orderExtension->setContractId($customSalesShipment->getContractId());
             $orderExtension->setCity($customSalesShipment->getCity());
             $orderExtension->setDistrict($customSalesShipment->getDistrict());
+            $orderExtension->setDistrict($customSalesShipment->getDistrict());
+            $orderExtension->setStreet($customSalesShipment->getStreet());
         }
 
         $order->setExtensionAttributes($orderExtension);

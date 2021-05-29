@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace QT\CustomSalesOrder\Observer;
 
-
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
+use Magento\Sales\Api\Data\OrderExtensionFactory;
 use QT\CustomSalesOrder\Api\CustomSalesShipmentInterface;
 use QT\CustomSalesOrder\Model\CustomSalesShipment;
+use QT\CustomSalesOrder\Model\CustomSalesShipmentFactory;
+use QT\CustomSalesOrder\Model\CustomSalesShipmentRepository;
 
 /**
  * Class ShipmentProcessor
@@ -17,8 +19,40 @@ use QT\CustomSalesOrder\Model\CustomSalesShipment;
 class ShipmentProcessor implements ObserverInterface
 {
     /**
+     * @var OrderExtensionFactory
+     */
+    private OrderExtensionFactory $orderExtensionFactory;
+
+    /**
+     * @var CustomSalesShipmentFactory
+     */
+    private CustomSalesShipmentFactory $customSalesShipmentFactory;
+
+    /**
+     * @var CustomSalesShipmentRepository
+     */
+    private CustomSalesShipmentRepository $customSalesShipmentRepository;
+
+    /**
+     * ShipmentProcessor constructor.
+     * @param OrderExtensionFactory $orderExtensionFactory
+     * @param CustomSalesShipmentFactory $customSalesShipmentFactory
+     * @param CustomSalesShipmentRepository $customSalesShipmentRepository
+     */
+    public function __construct(
+        OrderExtensionFactory $orderExtensionFactory,
+        CustomSalesShipmentFactory $customSalesShipmentFactory,
+        CustomSalesShipmentRepository $customSalesShipmentRepository
+    ) {
+        $this->orderExtensionFactory = $orderExtensionFactory;
+        $this->customSalesShipmentFactory = $customSalesShipmentFactory;
+        $this->customSalesShipmentRepository = $customSalesShipmentRepository;
+    }
+
+    /**
      * @param Observer $observer
      * @return mixed|void
+     * @throws \Magento\Framework\Webapi\Exception
      */
     public function execute(Observer $observer)
     {
@@ -57,7 +91,5 @@ class ShipmentProcessor implements ObserverInterface
         $customSalesShipment->setStreet(implode(",", $shippingAddress->getStreet()));
         $customSalesShipment->setStatus(CustomSalesShipmentInterface::STATUS_NEW);
         $this->customSalesShipmentRepository->save($customSalesShipment);
-
-        return $result;
     }
 }

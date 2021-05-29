@@ -63,16 +63,15 @@ class CustomSalesShipment extends AbstractModel implements CustomSalesShipmentIn
     /**
      * @inheritDoc
      */
-    public function getContractId(): ?int
+    public function getContractId(): ?string
     {
-        return $this->getData(self::CONTRACT_ID) === null ? null
-            : (int)$this->getData(self::CONTRACT_ID);
+        return $this->getData(self::CONTRACT_ID);
     }
 
     /**
      * @inheritDoc
      */
-    public function setContractId(?int $contractId): void
+    public function setContractId(?string $contractId): void
     {
         $this->setData(self::CONTRACT_ID, $contractId);
     }
