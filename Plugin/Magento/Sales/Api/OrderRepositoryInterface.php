@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace QT\CustomSalesOrder\Plugin\Magento\Sales\Api;
 
 use Magento\Sales\Api\Data\OrderExtensionFactory;
@@ -59,7 +61,6 @@ class OrderRepositoryInterface
      * @param \Magento\Sales\Api\OrderRepositoryInterface $subject
      * @param OrderInterface $order
      * @return OrderInterface
-     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function afterGet(
         \Magento\Sales\Api\OrderRepositoryInterface $subject,
@@ -67,24 +68,43 @@ class OrderRepositoryInterface
     ) {
         /** @var \Magento\Sales\Api\Data\OrderExtension $orderExtension */
         $orderExtension = $order->getExtensionAttributes() ?? $this->orderExtensionFactory->create();
+        $orderId = (int) $order->getEntityId();
 
-        $customSalesOrder = $this->customSalesOrderRepository->getByOrderId($order->getEntityId());
+        $customSalesOrder = $this->customSalesOrderRepository->getByOrderId($orderId);
         if ($customSalesOrder) {
+            $orderExtension->setCustomSalesOrderId($customSalesOrder->getEntityId());
             $orderExtension->setSalesChannel($customSalesOrder->getSalesChannel());
             $orderExtension->setSupplier($customSalesOrder->getSupplier());
-            $orderExtension->setCskhComment($customSalesOrder->getCskhComment());
+            $orderExtension->setCsComment($customSalesOrder->getCsComment());
             $orderExtension->setIntegrationId($customSalesOrder->getIntegrationId());
-            $orderExtension->setCustomSalesOrderId($customSalesOrder->getEntityId());
+            $orderExtension->setDeliveryNoteId($customSalesOrder->getDeliveryNoteId());
+            $orderExtension->setSpecification($customSalesOrder->getSpecification());
+            $orderExtension->setCreator($customSalesOrder->getCreator());
+            $orderExtension->setCsPerson($customSalesOrder->getCsPerson());
+            $orderExtension->setIssuer($customSalesOrder->getIssuer());
+            $orderExtension->setSalePerson($customSalesOrder->getSalePerson());
+            $orderExtension->setProducts($customSalesOrder->getProducts());
+            $orderExtension->setCancelReason($customSalesOrder->getCancelReason());
+            $orderExtension->setUseD($customSalesOrder->getUseD());
+            $orderExtension->setReconcileStatus($customSalesOrder->getReconcileStatus());
+            $orderExtension->setTransferStatus($customSalesOrder->getTransferStatus());
+            $orderExtension->setTotalAdvance($customSalesOrder->getTotalAdvance());
+            $orderExtension->setTransferDate($customSalesOrder->getTransferDate());
+            $orderExtension->setTransferDateShipment($customSalesOrder->getTransferDateShipment());
         }
-        $customSalesShipment = $this->customSalesShipmentRepository->getByOrderId($order->getEntityId());
+        $customSalesShipment = $this->customSalesShipmentRepository->getByOrderId($orderId);
         if ($customSalesShipment) {
             $orderExtension->setCustomSalesShipmentId($customSalesShipment->getEntityId());
             $orderExtension->setShipmentStatus($customSalesShipment->getStatus());
             $orderExtension->setContractId($customSalesShipment->getContractId());
             $orderExtension->setCity($customSalesShipment->getCity());
             $orderExtension->setDistrict($customSalesShipment->getDistrict());
-            $orderExtension->setDistrict($customSalesShipment->getDistrict());
             $orderExtension->setStreet($customSalesShipment->getStreet());
+            $orderExtension->setCreatedAt($customSalesShipment->getCreatedAt());
+            $orderExtension->setConfirmedAt($customSalesShipment->getConfirmedAt());
+            $orderExtension->setPackedAt($customSalesShipment->getPackedAt());
+            $orderExtension->setSendHvcAt($customSalesShipment->getSendHvcAt());
+            $orderExtension->setDeliveryAt($customSalesShipment->getDeliveryAt());
         }
 
         $order->setExtensionAttributes($orderExtension);
@@ -95,7 +115,6 @@ class OrderRepositoryInterface
      * @param \Magento\Sales\Api\OrderRepositoryInterface $subject
      * @param Collection $result
      * @return Collection
-     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function afterGetList(
         \Magento\Sales\Api\OrderRepositoryInterface $subject,
@@ -111,7 +130,7 @@ class OrderRepositoryInterface
      * @param \Magento\Sales\Api\OrderRepositoryInterface $subject
      * @param OrderInterface $order
      * @return OrderInterface
-     * @throws \Magento\Framework\Exception\AlreadyExistsException
+     * @throws \Magento\Framework\Exception\AlreadyExistsException|\Magento\Framework\Webapi\Exception
      */
     public function afterSave(
         \Magento\Sales\Api\OrderRepositoryInterface $subject,
@@ -120,7 +139,7 @@ class OrderRepositoryInterface
 
         $integrationId = $order->getExtensionAttributes()->getIntegrationId();
         $salesChannel = $order->getExtensionAttributes()->getSalesChannel();
-        $cskhComment = $order->getExtensionAttributes()->getCskhComment();
+        $csComment = $order->getExtensionAttributes()->getCsComment();
         $supplier = $order->getExtensionAttributes()->getSupplier();
         $orderId = (int) $order->getEntityId();
 
@@ -136,7 +155,7 @@ class OrderRepositoryInterface
             $customSalesOrder->setOrderId($orderId);
             $customSalesOrder->setIntegrationId($integrationId);
             $customSalesOrder->setSalesChannel($salesChannel);
-            $customSalesOrder->setCskhComment($cskhComment);
+            $customSalesOrder->setCsComment($csComment);
             $customSalesOrder->setSupplier($supplier);
 
             $this->customSalesOrderRepository->save($customSalesOrder);

@@ -19,18 +19,83 @@
                 <field>supplier</field>
             </join>
         </attribute>
-        <attribute code="cskh_comment" type="string" />
+        <attribute code="delivery_note_id" type="string">
+            <join reference_table="custom_sales_order" reference_field="order_id" join_on_field="entity_id">
+                <field>delivery_note_id</field>
+            </join>
+        </attribute>
+        <attribute code="specification" type="string">
+            <join reference_table="custom_sales_order" reference_field="order_id" join_on_field="entity_id">
+                <field>specification</field>
+            </join>
+        </attribute>
+        <attribute code="creator" type="string">
+            <join reference_table="custom_sales_order" reference_field="order_id" join_on_field="entity_id">
+                <field>creator</field>
+            </join>
+        </attribute>
+        <attribute code="cs_person" type="string">
+            <join reference_table="custom_sales_order" reference_field="order_id" join_on_field="entity_id">
+                <field>cs_person</field>
+            </join>
+        </attribute>
+        <attribute code="issuer" type="string">
+            <join reference_table="custom_sales_order" reference_field="order_id" join_on_field="entity_id">
+                <field>issuer</field>
+            </join>
+        </attribute>
+        <attribute code="sale_person" type="string">
+            <join reference_table="custom_sales_order" reference_field="order_id" join_on_field="entity_id">
+                <field>sale_person</field>
+            </join>
+        </attribute>
+        <attribute code="products" type="string">
+            <join reference_table="custom_sales_order" reference_field="order_id" join_on_field="entity_id">
+                <field>products</field>
+            </join>
+        </attribute>
+        <attribute code="cancel_reason" type="string">
+            <join reference_table="custom_sales_order" reference_field="order_id" join_on_field="entity_id">
+                <field>cancel_reason</field>
+            </join>
+        </attribute>
+        <attribute code="use_d" type="string">
+            <join reference_table="custom_sales_order" reference_field="order_id" join_on_field="entity_id">
+                <field>use_d</field>
+            </join>
+        </attribute>
+        <attribute code="reconcile_status" type="string">
+            <join reference_table="custom_sales_order" reference_field="order_id" join_on_field="entity_id">
+                <field>reconcile_status</field>
+            </join>
+        </attribute>
+        <attribute code="transfer_status" type="string">
+            <join reference_table="custom_sales_order" reference_field="order_id" join_on_field="entity_id">
+                <field>transfer_status</field>
+            </join>
+        </attribute>
+        <attribute code="total_advance" type="float">
+            <join reference_table="custom_sales_order" reference_field="order_id" join_on_field="entity_id">
+                <field>total_advance</field>
+            </join>
+        </attribute>
+        <attribute code="transfer_date" type="string">
+            <join reference_table="custom_sales_order" reference_field="order_id" join_on_field="entity_id">
+                <field>transfer_date</field>
+            </join>
+        </attribute>
+        <attribute code="transfer_date_shipment" type="string">
+            <join reference_table="custom_sales_order" reference_field="order_id" join_on_field="entity_id">
+                <field>transfer_date_shipment</field>
+            </join>
+        </attribute>
+        <attribute code="cs_comment" type="string" />
         <attribute code="carrier_code" type="string">
             <join reference_table="custom_sales_shipment" reference_field="order_id" join_on_field="entity_id">
                 <field>carrier_code</field>
             </join>
         </attribute>
-        <attribute code="contract_id" type="string">
-            <join reference_table="custom_sales_shipment" reference_field="order_id" join_on_field="entity_id">
-                <field>contract_id</field>
-            </join>
-        </attribute>
-        <attribute code="shipment_status" type="string">
+        <attribute code="shipment_status" type="int">
             <join reference_table="custom_sales_shipment" reference_field="order_id" join_on_field="entity_id">
                 <field>status</field>
             </join>

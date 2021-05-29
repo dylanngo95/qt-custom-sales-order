@@ -3,10 +3,24 @@
         "column": {
             "entity_id": true,
             "order_id": true,
-            "sales_channel": true,
-            "cskh_comment": true,
             "integration_id": true,
-            "supplier": true
+            "sales_channel": true,
+            "delivery_note_id": true,
+            "specification": true,
+            "creator": true,
+            "cs_person": true,
+            "issuer": true,
+            "sale_person": true,
+            "products": true,
+            "cs_comment": true,
+            "supplier": true,
+            "cancel_reason": true,
+            "use_d": true,
+            "reconcile_status": true,
+            "transfer_status": true,
+            "total_advance": true,
+            "transfer_date": true,
+            "transfer_date_shipment": true
         },
         "constraint": {
             "PRIMARY": true,

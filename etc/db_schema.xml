@@ -6,8 +6,22 @@
         <column comment="Order ID" name="order_id" unsigned="true" nullable="false" xsi:type="int"/>
         <column comment="Integration ID" name="integration_id" unsigned="true" nullable="true" xsi:type="int"/>
         <column comment="Sales Channel" length="255" name="sales_channel" nullable="true" xsi:type="varchar" />
-        <column comment="CSKH Comment" name="cskh_comment" nullable="true" xsi:type="text" />
+        <column comment="Delivery Note ID" length="255" name="delivery_note_id" nullable="true" xsi:type="varchar" />
+        <column comment="Specification" length="255" name="specification" nullable="true" xsi:type="varchar" />
+        <column comment="Creator" length="255" name="creator" nullable="true" xsi:type="varchar" />
+        <column comment="CS Person" length="255" name="cs_person" nullable="true" xsi:type="varchar" />
+        <column comment="Issuer" length="255" name="issuer" nullable="true" xsi:type="varchar" />
+        <column comment="Sale person" length="255" name="sale_person" nullable="true" xsi:type="varchar" />
+        <column comment="Products" length="255" name="products" nullable="true" xsi:type="varchar" />
+        <column comment="CS Comment" name="cs_comment" nullable="true" xsi:type="text" />
         <column comment="Supplier" length="255" name="supplier" nullable="true" xsi:type="varchar" />
+        <column comment="Cancel Reason" length="255" name="cancel_reason" nullable="true" xsi:type="varchar" />
+        <column comment="UseD" length="255" name="use_d" nullable="true" xsi:type="varchar" />
+        <column comment="Reconcile Status" length="255" name="reconcile_status" nullable="true" xsi:type="varchar" />
+        <column comment="Transfer Status" length="255" name="transfer_status" nullable="true" xsi:type="varchar" />
+        <column comment="Total Advance" name="total_advance" scale="4" precision="20" unsigned="false" nullable="true" default="0" xsi:type="decimal" />
+        <column comment="Transfer Date" name="transfer_date" on_update="false" nullable="true" xsi:type="timestamp" />
+        <column comment="Transfer Date Shipment" name="transfer_date_shipment" on_update="false" nullable="true" xsi:type="timestamp" />
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="entity_id"/>
         </constraint>
