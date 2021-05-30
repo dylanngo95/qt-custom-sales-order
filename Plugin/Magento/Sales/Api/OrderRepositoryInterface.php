@@ -137,10 +137,8 @@ class OrderRepositoryInterface
         OrderInterface $order
     ) {
 
-        $integrationId = $order->getExtensionAttributes()->getIntegrationId();
-        $salesChannel = $order->getExtensionAttributes()->getSalesChannel();
-        $csComment = $order->getExtensionAttributes()->getCsComment();
-        $supplier = $order->getExtensionAttributes()->getSupplier();
+        /** @var \Magento\Sales\Api\Data\OrderExtensionInterface $orderExtension */
+        $orderExtension = $order->getExtensionAttributes() ?? $this->orderExtensionFactory->create();
         $orderId = (int) $order->getEntityId();
 
         if ($orderId) {
@@ -153,10 +151,24 @@ class OrderRepositoryInterface
             }
 
             $customSalesOrder->setOrderId($orderId);
-            $customSalesOrder->setIntegrationId($integrationId);
-            $customSalesOrder->setSalesChannel($salesChannel);
-            $customSalesOrder->setCsComment($csComment);
-            $customSalesOrder->setSupplier($supplier);
+            $customSalesOrder->setIntegrationId($orderExtension->getIntegrationId());
+            $customSalesOrder->setSalesChannel($orderExtension->getSalesChannel());
+            $customSalesOrder->setCsComment($orderExtension->getCsComment());
+            $customSalesOrder->setSupplier($orderExtension->getSupplier());
+            $customSalesOrder->setDeliveryNoteId($orderExtension->getDeliveryNoteId());
+            $customSalesOrder->setSpecification($orderExtension->getSpecification());
+            $customSalesOrder->setCreator($orderExtension->getCreator());
+            $customSalesOrder->setCsPerson($orderExtension->getCsPerson());
+            $customSalesOrder->setIssuer($orderExtension->getIssuer());
+            $customSalesOrder->setSalePerson($orderExtension->getSalePerson());
+            $customSalesOrder->setProducts($orderExtension->getProducts());
+            $customSalesOrder->setCancelReason($orderExtension->getCancelReason());
+            $customSalesOrder->setUseD($orderExtension->getUseD());
+            $customSalesOrder->setReconcileStatus($orderExtension->getReconcileStatus());
+            $customSalesOrder->setTransferStatus($orderExtension->getTransferStatus());
+            $customSalesOrder->setTotalAdvance($orderExtension->getTotalAdvance());
+            $customSalesOrder->setTransferDate($orderExtension->getTransferDate());
+            $customSalesOrder->setTransferDateShipment($orderExtension->getTransferDateShipment());
 
             $this->customSalesOrderRepository->save($customSalesOrder);
         }
