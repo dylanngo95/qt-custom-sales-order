@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace QT\CustomSalesOrder\Plugin\Magento\Sales\Api;
 
+use Magento\Catalog\Model\CategoryRepositoryFactory;
+use Magento\Catalog\Model\ProductRepositoryFactory;
+use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Sales\Api\Data\OrderExtensionFactory;
 use Magento\Sales\Api\Data\OrderInterface;
 use Magento\Sales\Model\ResourceModel\Order\Collection;
@@ -38,23 +41,38 @@ class OrderRepositoryInterface
     private CustomSalesShipmentRepository $customSalesShipmentRepository;
 
     /**
+     * @var ProductRepositoryFactory
+     */
+    private ProductRepositoryFactory $productRepositoryFactory;
+
+    /**
+     * @var CategoryRepositoryFactory
+     */
+    private CategoryRepositoryFactory $categoryRepositoryFactory;
+
+    /**
      * OrderRepositoryInterface constructor.
      * @param OrderExtensionFactory $orderExtensionFactory
      * @param ObjectModelFactory $objectModelFactory
      * @param CustomSalesOrderRepository $customSalesOrderRepository
      * @param CustomSalesShipmentRepository $customSalesShipmentRepository
+     * @param ProductRepositoryFactory $productRepositoryFactory
      */
     public function __construct(
         OrderExtensionFactory $orderExtensionFactory,
         ObjectModelFactory $objectModelFactory,
         CustomSalesOrderRepository $customSalesOrderRepository,
-        CustomSalesShipmentRepository $customSalesShipmentRepository
+        CustomSalesShipmentRepository $customSalesShipmentRepository,
+        ProductRepositoryFactory $productRepositoryFactory,
+        CategoryRepositoryFactory $categoryRepositoryFactory
 
     ) {
         $this->orderExtensionFactory = $orderExtensionFactory;
         $this->objectModelFactory = $objectModelFactory;
         $this->customSalesOrderRepository = $customSalesOrderRepository;
         $this->customSalesShipmentRepository = $customSalesShipmentRepository;
+        $this->productRepositoryFactory = $productRepositoryFactory;
+        $this->categoryRepositoryFactory = $categoryRepositoryFactory;
     }
 
     /**
@@ -90,7 +108,20 @@ class OrderRepositoryInterface
             $orderExtension->setTransferStatus($customSalesOrder->getTransferStatus());
             $orderExtension->setTotalAdvance($customSalesOrder->getTotalAdvance());
             $orderExtension->setTransferDate($customSalesOrder->getTransferDate());
-            $orderExtension->setTransferDateShipment($customSalesOrder->getTransferDateShipment());
+            $orderExtension->setShippingDiscount($customSalesOrder->getShippingDiscount());
+            $orderExtension->setCategory($customSalesOrder->getCategory());
+            $orderExtension->setDeliveryType($customSalesOrder->getDeliveryType());
+            $orderExtension->setPriceType($customSalesOrder->getPriceType());
+            $orderExtension->setOrderType($customSalesOrder->getOrderType());
+            $orderExtension->setProductCategory($customSalesOrder->getProductCategory());
+            $orderExtension->setPaymentMethod($customSalesOrder->getPaymentMethod());
+            $orderExtension->setSource($customSalesOrder->getSource());
+            $orderExtension->setCheckMethod($customSalesOrder->getCheckMethod());
+            $orderExtension->setCodAmount($customSalesOrder->getCodAmount());
+            $orderExtension->setDeposit($customSalesOrder->getDeposit());
+            $orderExtension->setCashAccount($customSalesOrder->getCashAccount());
+            $orderExtension->setBankTransferNumber($customSalesOrder->getBankTransferNumber());
+            $orderExtension->setPaymentAppointmentDate($customSalesOrder->getPaymentAppointmentDate());
         }
         $customSalesShipment = $this->customSalesShipmentRepository->getByOrderId($orderId);
         if ($customSalesShipment) {
@@ -131,6 +162,7 @@ class OrderRepositoryInterface
      * @param OrderInterface $order
      * @return OrderInterface
      * @throws \Magento\Framework\Exception\AlreadyExistsException|\Magento\Framework\Webapi\Exception
+     * @throws NoSuchEntityException
      */
     public function afterSave(
         \Magento\Sales\Api\OrderRepositoryInterface $subject,
@@ -168,11 +200,62 @@ class OrderRepositoryInterface
             $customSalesOrder->setTransferStatus($orderExtension->getTransferStatus());
             $customSalesOrder->setTotalAdvance($orderExtension->getTotalAdvance());
             $customSalesOrder->setTransferDate($orderExtension->getTransferDate());
-            $customSalesOrder->setTransferDateShipment($orderExtension->getTransferDateShipment());
+            $customSalesOrder->setShippingDiscount($orderExtension->getShippingDiscount());
+            $customSalesOrder->setCategory($orderExtension->getCategory());
+            $customSalesOrder->setDeliveryType($orderExtension->getDeliveryType());
+            $customSalesOrder->setPriceType($orderExtension->getPriceType());
+            $customSalesOrder->setOrderType($orderExtension->getOrderType());
+            $customSalesOrder->setSource($orderExtension->getSource());
+            $customSalesOrder->setCheckMethod($orderExtension->getCheckMethod());
+            $customSalesOrder->setCodAmount($orderExtension->getCodAmount());
+            $customSalesOrder->setDeposit($orderExtension->getDeposit());
+            $customSalesOrder->setCashAccount($orderExtension->getCashAccount());
+            $customSalesOrder->setBankTransferNumber($orderExtension->getBankTransferNumber());
+            $customSalesOrder->setPaymentAppointmentDate($orderExtension->getPaymentAppointmentDate());
+
+            if ($orderExtension->getProductCategory()) {
+                $customSalesOrder->setProductCategory($orderExtension->getProductCategory());
+            } else {
+                $customSalesOrder->setProductCategory($this->getProductCategory($order));
+            }
+
+            if ($orderExtension->getPaymentMethod()) {
+                $customSalesOrder->setPaymentMethod($orderExtension->getPaymentMethod());
+            } else {
+                $paymentMethod = $order->getPayment() ? $order->getPayment()->getMethod() : "";
+                $customSalesOrder->setPaymentMethod($paymentMethod);
+            }
 
             $this->customSalesOrderRepository->save($customSalesOrder);
         }
 
         return $order;
+    }
+
+    /**
+     * @param OrderInterface $order
+     * @return string
+     * @throws NoSuchEntityException
+     */
+    private function getProductCategory(
+        OrderInterface $order
+    ): string
+    {
+        $productCategories = [];
+        $items = $order->getItems();
+        foreach ($items as $item) {
+            $product = $this->productRepositoryFactory
+                ->create()
+                ->getById($item->getProductId());
+            $categoryIds = $product->getCategoryIds();
+            foreach ($categoryIds as $categoryId) {
+                $category = $this->categoryRepositoryFactory
+                    ->create()
+                    ->get($categoryId);
+                $categoryName = $category->getName();
+                $productCategories[] = $categoryName;
+            }
+        }
+        return implode(",", $productCategories);
     }
 }

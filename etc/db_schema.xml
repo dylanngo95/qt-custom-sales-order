@@ -19,9 +19,22 @@
         <column comment="UseD" length="255" name="use_d" nullable="true" xsi:type="varchar" />
         <column comment="Reconcile Status" length="255" name="reconcile_status" nullable="true" xsi:type="varchar" />
         <column comment="Transfer Status" length="255" name="transfer_status" nullable="true" xsi:type="varchar" />
-        <column comment="Total Advance" name="total_advance" scale="4" precision="20" unsigned="false" nullable="true" default="0" xsi:type="decimal" />
+        <column comment="Total Advance" name="total_advance" scale="4" precision="20" unsigned="false" nullable="true" xsi:type="decimal" />
         <column comment="Transfer Date" name="transfer_date" on_update="false" nullable="true" xsi:type="timestamp" />
-        <column comment="Transfer Date Shipment" name="transfer_date_shipment" on_update="false" nullable="true" xsi:type="timestamp" />
+        <column comment="Shipping Discount" name="shipping_discount" scale="4" precision="20" unsigned="false" nullable="true" xsi:type="decimal" />
+        <column comment="Category" length="255" name="category" nullable="true" xsi:type="varchar" />
+        <column comment="Delivery Type" length="255" name="delivery_type" nullable="true" xsi:type="varchar" />
+        <column comment="Price Type" length="255" name="price_type" nullable="true" xsi:type="varchar" />
+        <column comment="Order Type" length="255" name="order_type" nullable="true" xsi:type="varchar" />
+        <column comment="Product Category" length="255" name="product_category" nullable="true" xsi:type="varchar" />
+        <column comment="Payment Method" length="255" name="payment_method" nullable="true" xsi:type="varchar" />
+        <column comment="Source" length="255" name="source" nullable="true" xsi:type="varchar" />
+        <column comment="Check Method" length="255" name="check_method" nullable="true" xsi:type="varchar" />
+        <column comment="COD Amount" name="cod_amount" scale="4" precision="20" unsigned="false" nullable="true" xsi:type="decimal" />
+        <column comment="Deposit" name="deposit" scale="4" precision="20" unsigned="false" nullable="true" xsi:type="decimal" />
+        <column comment="Cash account" name="cash_account" scale="4" precision="20" unsigned="false" nullable="true" xsi:type="decimal" />
+        <column comment="Bank Transfer Number" length="255" name="bank_transfer_number" nullable="true" xsi:type="varchar" />
+        <column comment="Payment appointment date" name="payment_appointment_date" on_update="false" nullable="true" xsi:type="timestamp" />
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="entity_id"/>
         </constraint>

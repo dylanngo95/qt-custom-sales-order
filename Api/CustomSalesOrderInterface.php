@@ -32,7 +32,20 @@ interface CustomSalesOrderInterface
     const TRANSFER_STATUS = "transfer_status";
     const TOTAL_ADVANCE = "total_advance";
     const TRANSFER_DATE = "transfer_date";
-    const TRANSFER_DATE_SHIPMENT = "transfer_date_shipment";
+    const SHIPPING_DISCOUNT = "shipping_discount";
+    const CATEGORY = "category";
+    const DELIVERY_TYPE = "delivery_type";
+    const PRICE_TYPE = "price_type";
+    const ORDER_TYPE = "order_type";
+    const PRODUCT_CATEGORY = "product_category";
+    const PAYMENT_METHOD = "payment_method";
+    const SOURCE = "source";
+    const CHECK_METHOD = "check_method";
+    const COD_AMOUNT = "cod_amount";
+    const DEPOSIT = "deposit";
+    const CASH_ACCOUNT = "cash_account";
+    const BANK_TRANSFER_NUMBER = "bank_transfer_number";
+    const PAYMENT_APPOINTMENT_DATE = "payment_appointment_date";
 
     /**
      * Getter for EntityId.
@@ -339,18 +352,226 @@ interface CustomSalesOrderInterface
     public function setTransferDate(?string $transferDate): void;
 
     /**
-     * Getter for TransferDateShipment.
+     * Getter for ShippingDiscount.
      *
-     * @return string|null
+     * @return float|null
      */
-    public function getTransferDateShipment(): ?string;
+    public function getShippingDiscount(): ?float;
 
     /**
-     * Setter for TransferDateShipment.
+     * Setter for ShippingDiscount.
      *
-     * @param string|null $transferDateShipment
+     * @param float|null $shippingDiscount
      *
      * @return void
      */
-    public function setTransferDateShipment(?string $transferDateShipment): void;
+    public function setShippingDiscount(?float $shippingDiscount): void;
+
+    /**
+     * Getter for Category.
+     *
+     * @return string|null
+     */
+    public function getCategory(): ?string;
+
+    /**
+     * Setter for Category.
+     *
+     * @param string|null $category
+     *
+     * @return void
+     */
+    public function setCategory(?string $category): void;
+
+    /**
+     * Getter for DeliveryType.
+     *
+     * @return string|null
+     */
+    public function getDeliveryType(): ?string;
+
+    /**
+     * Setter for DeliveryType.
+     *
+     * @param string|null $deliveryType
+     *
+     * @return void
+     */
+    public function setDeliveryType(?string $deliveryType): void;
+
+    /**
+     * Getter for PriceType.
+     *
+     * @return string|null
+     */
+    public function getPriceType(): ?string;
+
+    /**
+     * Setter for PriceType.
+     *
+     * @param string|null $priceType
+     *
+     * @return void
+     */
+    public function setPriceType(?string $priceType): void;
+
+    /**
+     * Getter for OrderType.
+     *
+     * @return string|null
+     */
+    public function getOrderType(): ?string;
+
+    /**
+     * Setter for OrderType.
+     *
+     * @param string|null $orderType
+     *
+     * @return void
+     */
+    public function setOrderType(?string $orderType): void;
+
+    /**
+     * Getter for ProductCategory.
+     *
+     * @return string|null
+     */
+    public function getProductCategory(): ?string;
+
+    /**
+     * Setter for ProductCategory.
+     *
+     * @param string|null $productCategory
+     *
+     * @return void
+     */
+    public function setProductCategory(?string $productCategory): void;
+
+    /**
+     * Getter for PaymentMethod.
+     *
+     * @return string|null
+     */
+    public function getPaymentMethod(): ?string;
+
+    /**
+     * Setter for PaymentMethod.
+     *
+     * @param string|null $paymentMethod
+     *
+     * @return void
+     */
+    public function setPaymentMethod(?string $paymentMethod): void;
+
+    /**
+     * Getter for Source.
+     *
+     * @return string|null
+     */
+    public function getSource(): ?string;
+
+    /**
+     * Setter for Source.
+     *
+     * @param string|null $source
+     *
+     * @return void
+     */
+    public function setSource(?string $source): void;
+
+    /**
+     * Getter for CheckMethod.
+     *
+     * @return string|null
+     */
+    public function getCheckMethod(): ?string;
+
+    /**
+     * Setter for CheckMethod.
+     *
+     * @param string|null $checkMethod
+     *
+     * @return void
+     */
+    public function setCheckMethod(?string $checkMethod): void;
+
+    /**
+     * Getter for CodAmount.
+     *
+     * @return float|null
+     */
+    public function getCodAmount(): ?float;
+
+    /**
+     * Setter for CodAmount.
+     *
+     * @param float|null $codAmount
+     *
+     * @return void
+     */
+    public function setCodAmount(?float $codAmount): void;
+
+    /**
+     * Getter for Deposit.
+     *
+     * @return float|null
+     */
+    public function getDeposit(): ?float;
+
+    /**
+     * Setter for Deposit.
+     *
+     * @param float|null $deposit
+     *
+     * @return void
+     */
+    public function setDeposit(?float $deposit): void;
+
+    /**
+     * Getter for CashAccount.
+     *
+     * @return float|null
+     */
+    public function getCashAccount(): ?float;
+
+    /**
+     * Setter for CashAccount.
+     *
+     * @param float|null $cashAccount
+     *
+     * @return void
+     */
+    public function setCashAccount(?float $cashAccount): void;
+
+    /**
+     * Getter for BankTransferNumber.
+     *
+     * @return string|null
+     */
+    public function getBankTransferNumber(): ?string;
+
+    /**
+     * Setter for BankTransferNumber.
+     *
+     * @param string|null $bankTransferNumber
+     *
+     * @return void
+     */
+    public function setBankTransferNumber(?string $bankTransferNumber): void;
+
+    /**
+     * Getter for PaymentAppointmentDate.
+     *
+     * @return string|null
+     */
+    public function getPaymentAppointmentDate(): ?string;
+
+    /**
+     * Setter for PaymentAppointmentDate.
+     *
+     * @param string|null $paymentTransferDate
+     *
+     * @return void
+     */
+    public function setPaymentAppointmentDate(?string $paymentTransferDate): void;
 }

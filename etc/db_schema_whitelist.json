@@ -20,7 +20,20 @@
             "transfer_status": true,
             "total_advance": true,
             "transfer_date": true,
-            "transfer_date_shipment": true
+            "shipping_discount": true,
+            "category": true,
+            "delivery_type": true,
+            "price_type": true,
+            "order_type": true,
+            "product_category": true,
+            "payment_method": true,
+            "source": true,
+            "check_method": true,
+            "cod_amount": true,
+            "deposit": true,
+            "cash_account": true,
+            "bank_transfer_number": true,
+            "payment_appointment_date": true
         },
         "constraint": {
             "PRIMARY": true,

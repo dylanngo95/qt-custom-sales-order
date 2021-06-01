@@ -338,16 +338,228 @@ class CustomSalesOrder extends AbstractModel implements CustomSalesOrderInterfac
     /**
      * @inheritDoc
      */
-    public function getTransferDateShipment(): ?string
+    public function getShippingDiscount(): ?float
     {
-        return $this->getData(self::TRANSFER_DATE_SHIPMENT);
+        return $this->getData(self::SHIPPING_DISCOUNT) === null ? null
+            : (float)$this->getData(self::SHIPPING_DISCOUNT);
     }
 
     /**
      * @inheritDoc
      */
-    public function setTransferDateShipment(?string $transferDateShipment): void
+    public function setShippingDiscount(?float $shippingDiscount): void
     {
-        $this->setData(self::TRANSFER_DATE_SHIPMENT, $transferDateShipment);
+        $this->setData(self::SHIPPING_DISCOUNT, $shippingDiscount);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getCategory(): ?string
+    {
+        return $this->getData(self::CATEGORY);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setCategory(?string $category): void
+    {
+        $this->setData(self::CATEGORY, $category);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getDeliveryType(): ?string
+    {
+        return $this->getData(self::DELIVERY_TYPE);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setDeliveryType(?string $deliveryType): void
+    {
+        $this->setData(self::DELIVERY_TYPE, $deliveryType);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getPriceType(): ?string
+    {
+        return $this->getData(self::PRICE_TYPE);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setPriceType(?string $priceType): void
+    {
+        $this->setData(self::PRICE_TYPE, $priceType);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getOrderType(): ?string
+    {
+        return $this->getData(self::ORDER_TYPE);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setOrderType(?string $orderType): void
+    {
+        $this->setData(self::ORDER_TYPE, $orderType);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getProductCategory(): ?string
+    {
+        return $this->getData(self::PRODUCT_CATEGORY);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setProductCategory(?string $productCategory): void
+    {
+        $this->setData(self::PRODUCT_CATEGORY, $productCategory);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getPaymentMethod(): ?string
+    {
+        return $this->getData(self::PAYMENT_METHOD);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setPaymentMethod(?string $paymentMethod): void
+    {
+        $this->setData(self::PAYMENT_METHOD, $paymentMethod);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getSource(): ?string
+    {
+        return $this->getData(self::SOURCE);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setSource(?string $source): void
+    {
+        $this->setData(self::SOURCE, $source);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getCheckMethod(): ?string
+    {
+        return $this->getData(self::CHECK_METHOD);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setCheckMethod(?string $checkMethod): void
+    {
+        $this->setData(self::CHECK_METHOD, $checkMethod);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getCodAmount(): ?float
+    {
+        return $this->getData(self::COD_AMOUNT) === null ? null
+            : (float)$this->getData(self::COD_AMOUNT);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setCodAmount(?float $codAmount): void
+    {
+        $this->setData(self::COD_AMOUNT, $codAmount);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getDeposit(): ?float
+    {
+        return $this->getData(self::DEPOSIT) === null ? null
+            : (float)$this->getData(self::DEPOSIT);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setDeposit(?float $deposit): void
+    {
+        $this->setData(self::DEPOSIT, $deposit);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getCashAccount(): ?float
+    {
+        return $this->getData(self::CASH_ACCOUNT) === null ? null
+            : (float)$this->getData(self::CASH_ACCOUNT);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setCashAccount(?float $cashAccount): void
+    {
+        $this->setData(self::CASH_ACCOUNT, $cashAccount);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getBankTransferNumber(): ?string
+    {
+        return $this->getData(self::BANK_TRANSFER_NUMBER);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setBankTransferNumber(?string $bankTransferNumber): void
+    {
+        $this->setData(self::BANK_TRANSFER_NUMBER, $bankTransferNumber);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getPaymentAppointmentDate(): ?string
+    {
+        return $this->getData(self::PAYMENT_APPOINTMENT_DATE);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setPaymentAppointmentDate(?string $paymentTransferDate): void
+    {
+        $this->setData(self::PAYMENT_APPOINTMENT_DATE, $paymentTransferDate);
     }
 }
