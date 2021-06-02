@@ -54,7 +54,8 @@
             "confirmed_at": true,
             "packed_at": true,
             "send_hvc_at": true,
-            "delivery_at": true
+            "delivery_at": true,
+            "delivery_status": true
         },
         "constraint": {
             "PRIMARY": true,

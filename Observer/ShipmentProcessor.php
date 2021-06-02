@@ -89,7 +89,7 @@ class ShipmentProcessor implements ObserverInterface
         $customSalesShipment->setOrderId($orderId);
         $customSalesShipment->setCity($shippingAddress->getCity());
         $customSalesShipment->setStreet(implode(",", $shippingAddress->getStreet()));
-        $customSalesShipment->setStatus(CustomSalesShipmentInterface::STATUS_NEW);
+        $customSalesShipment->setDeliveryStatus(CustomSalesShipmentInterface::STATUS_NEW);
         $this->customSalesShipmentRepository->save($customSalesShipment);
     }
 }

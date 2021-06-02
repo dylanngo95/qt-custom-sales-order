@@ -10,11 +10,11 @@ namespace QT\CustomSalesOrder\Api;
  */
 interface CustomSalesShipmentInterface
 {
-    const STATUS_NEW = 0;
-    const STATUS_CONFIRMED = 1;
-    const STATUS_PACKED = 2;
-    const STATUS_SEND_HVC = 3;
-    const STATUS_DELIVERY = 4;
+    const STATUS_NEW = 'new';
+    const STATUS_CONFIRMED = 'confirmed';
+    const STATUS_PACKED = 'packed';
+    const STATUS_SEND_HVC = 'send_hvc';
+    const STATUS_DELIVERY = 'delivery';
 
     /**
      * String constants for property names
@@ -26,7 +26,7 @@ interface CustomSalesShipmentInterface
     const DISTRICT = "district";
     const STREET = "street";
     const CARRIER_CODE = "carrier_code";
-    const STATUS = "status";
+    const DELIVERY_STATUS = "delivery_status";
     const CREATED_AT = "created_at";
     const CONFIRMED_AT = "confirmed_at";
     const PACKED_AT = "packed_at";
@@ -148,18 +148,18 @@ interface CustomSalesShipmentInterface
     /**
      * Getter for Status.
      *
-     * @return int|null
+     * @return string|null
      */
-    public function getStatus(): ?int;
+    public function getDeliveryStatus(): ?string;
 
     /**
      * Setter for Status.
      *
-     * @param int|null $status
+     * @param string|null $status
      *
      * @return void
      */
-    public function setStatus(?int $status): void;
+    public function setDeliveryStatus(?string $status): void;
 
     /**
      * Getter for CreatedAt.

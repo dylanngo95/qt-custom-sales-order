@@ -50,7 +50,7 @@
         <column comment="District" length="255" name="district" nullable="true" xsi:type="varchar" />
         <column comment="Street" length="255" name="street" nullable="true" xsi:type="varchar" />
         <column comment="Carrier Code" length="255" name="carrier_code" nullable="true" xsi:type="varchar" />
-        <column xsi:type="smallint" name="status" nullable="true" padding="5" comment="Status"/>
+        <column comment="Delivery Status" length="255" name="delivery_status" nullable="true" xsi:type="varchar" />
         <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
         <column xsi:type="timestamp" name="confirmed_at" on_update="false" nullable="true" comment="Confirmed At"/>
         <column xsi:type="timestamp" name="packed_at" on_update="false" nullable="true" comment="Packed At"/>

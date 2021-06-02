@@ -10,8 +10,8 @@ use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Sales\Api\Data\OrderExtensionFactory;
 use Magento\Sales\Api\Data\OrderInterface;
 use Magento\Sales\Model\ResourceModel\Order\Collection;
-use QT\CustomSalesOrder\Model\CustomSalesOrderRepository;
 use QT\CustomSalesOrder\Model\CustomSalesOrderFactory as ObjectModelFactory;
+use QT\CustomSalesOrder\Model\CustomSalesOrderRepository;
 use QT\CustomSalesOrder\Model\CustomSalesShipmentRepository;
 
 /**
@@ -65,7 +65,6 @@ class OrderRepositoryInterface
         CustomSalesShipmentRepository $customSalesShipmentRepository,
         ProductRepositoryFactory $productRepositoryFactory,
         CategoryRepositoryFactory $categoryRepositoryFactory
-
     ) {
         $this->orderExtensionFactory = $orderExtensionFactory;
         $this->objectModelFactory = $objectModelFactory;
@@ -193,7 +192,6 @@ class OrderRepositoryInterface
             $customSalesOrder->setCsPerson($orderExtension->getCsPerson());
             $customSalesOrder->setIssuer($orderExtension->getIssuer());
             $customSalesOrder->setSalePerson($orderExtension->getSalePerson());
-            $customSalesOrder->setProducts($orderExtension->getProducts());
             $customSalesOrder->setCancelReason($orderExtension->getCancelReason());
             $customSalesOrder->setUseD($orderExtension->getUseD());
             $customSalesOrder->setReconcileStatus($orderExtension->getReconcileStatus());
@@ -226,6 +224,17 @@ class OrderRepositoryInterface
                 $customSalesOrder->setPaymentMethod($paymentMethod);
             }
 
+            if ($orderExtension->getProducts()) {
+                $customSalesOrder->setProducts($orderExtension->getProducts());
+            } else {
+                $skus = [];
+                $items = $order->getItems();
+                foreach ($items as $item) {
+                    $skus[] = $item->getSku();
+                }
+                $customSalesOrder->setProducts(implode(",", $skus));
+            }
+
             $this->customSalesOrderRepository->save($customSalesOrder);
         }
 
@@ -239,8 +248,7 @@ class OrderRepositoryInterface
      */
     private function getProductCategory(
         OrderInterface $order
-    ): string
-    {
+    ): string {
         $productCategories = [];
         $items = $order->getItems();
         foreach ($items as $item) {

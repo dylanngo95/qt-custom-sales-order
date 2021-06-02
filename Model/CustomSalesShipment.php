@@ -143,18 +143,17 @@ class CustomSalesShipment extends AbstractModel implements CustomSalesShipmentIn
     /**
      * @inheritDoc
      */
-    public function getStatus(): ?int
+    public function getDeliveryStatus(): ?string
     {
-        return $this->getData(self::STATUS) === null ? null
-            : (int)$this->getData(self::STATUS);
+        return $this->getData(self::DELIVERY_STATUS);
     }
 
     /**
      * @inheritDoc
      */
-    public function setStatus(?int $status): void
+    public function setDeliveryStatus(?string $status): void
     {
-        $this->setData(self::STATUS, $status);
+        $this->setData(self::DELIVERY_STATUS, $status);
     }
 
     /**
